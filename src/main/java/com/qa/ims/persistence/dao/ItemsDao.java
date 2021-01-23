@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
+
 import com.qa.ims.persistence.domain.Items;
 import com.qa.ims.utils.DatabaseUtilities;
 
@@ -36,7 +36,7 @@ public class ItemsDao implements IDomainDao<Items>  {
 	        return null;
 		}
 	   
-	   public Customer read(Long id) {
+	   public Items read(Long id) {
 		   // TODO Auto-generated method stub
 	        return null;
 	    }
