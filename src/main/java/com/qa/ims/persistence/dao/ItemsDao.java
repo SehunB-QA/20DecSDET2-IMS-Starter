@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import com.qa.ims.persistence.domain.Items;
 import com.qa.ims.utils.DatabaseUtilities;
 
@@ -45,15 +44,27 @@ public class ItemsDao implements IDomainDao<Items>  {
 	   
 	@Override
 	public List<Items> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM items");) {
+            List<Items> items = new ArrayList<>();
+            while (resultSet.next()) {
+                items.add(modelFromResultSet(resultSet));
+            }
+            return items;
+        } catch (SQLException e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return new ArrayList<>();
 	}
 
     public Items readLatest() {
     	   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                    Statement statement = connection.createStatement();
                    ResultSet resultSet = statement.executeQuery("SELECT * FROM items ORDER BY id_items DESC LIMIT 1");) {
-               resultSet.next();
+              //Future reference : May actually be id
+    		   resultSet.next();
                return modelFromResultSet(resultSet);
            } catch (Exception e) {
                LOGGER.debug(e);
