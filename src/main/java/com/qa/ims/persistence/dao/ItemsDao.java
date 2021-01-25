@@ -36,7 +36,16 @@ public class ItemsDao implements IDomainDao<Items>  {
 		}
 	   
 	   public Items read(Long id) {
-		   // TODO Auto-generated method stub
+		   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+	                PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE id_items  = ?");) {
+	            statement.setLong(1, id);
+	            ResultSet resultSet = statement.executeQuery();
+	            resultSet.next();
+	            return modelFromResultSet(resultSet);
+	        } catch (Exception e) {
+	            LOGGER.debug(e);
+	            LOGGER.error(e.getMessage());
+	        }
 	        return null;
 	    }
 	   
@@ -75,15 +84,32 @@ public class ItemsDao implements IDomainDao<Items>  {
 	
 
 	@Override
-	public Items update(Items t) {
-		// TODO Auto-generated method stub
-		return null;
+	public Items update(Items items) {
+		 try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+	                PreparedStatement statement = connection
+	                        .prepareStatement("UPDATE items SET item_name = ?, item_price = ? WHERE id_items = ?");) {
+	            statement.setString(1, items.getItemsName());
+	            statement.setDouble(2, items.getItemsPrice());
+	            statement.setLong(3, items.getItemsId());
+	            statement.executeUpdate();
+	            return read(items.getItemsId());
+	        } catch (Exception e) {
+	            LOGGER.debug(e);
+	            LOGGER.error(e.getMessage());
+	        }
+	        return null;
 	}
 
 	@Override
 	public int delete(long itemsID) {
-		// TODO Auto-generated method stub
-		return 0;
+		  try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+	                Statement statement = connection.createStatement();) {
+	            return statement.executeUpdate("delete from items where id_items = " + itemsID);
+	        } catch (Exception e) {
+	            LOGGER.debug(e);
+	            LOGGER.error(e.getMessage());
+	        }
+	        return 0;
 	}
 
 	@Override
