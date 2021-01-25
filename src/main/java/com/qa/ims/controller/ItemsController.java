@@ -64,8 +64,14 @@ public class ItemsController  implements ICrudController<Items> {
 
 	@Override
 	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+	   //Output list of items for better experience
+		readAll();
+		LOGGER.info("");
+		//
+		LOGGER.info("Please enter the id of the item you would like to delete");
+        Long itemsID = javaUtilities.getLong();
+        LOGGER.info("Item has been deleted");
+        return itemsDao.delete(itemsID);
 	}
 
 }
