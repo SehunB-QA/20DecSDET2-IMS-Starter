@@ -20,7 +20,7 @@ public class CustomerController implements ICrudController<Customer> {
         super();
         this.customerDao = customerDao;
         this.javaUtilities = javaUtilities;
-    }
+    } 
 
     @Override
     public List<Customer> readAll() {
@@ -54,7 +54,7 @@ public class CustomerController implements ICrudController<Customer> {
         LOGGER.info("Customer Updated");
         return customer;
     }
-
+ 
     @Override
     public int delete() {
         LOGGER.info("Please enter the id of the customer you would like to delete");

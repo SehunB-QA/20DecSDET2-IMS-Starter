@@ -41,7 +41,7 @@ public class ItemsController  implements ICrudController<Items> {
 	        Items items = itemsDao.create(new Items(itemName, itemValue));
 	        LOGGER.info("Item created");
 	        return items;
-	}
+	} 
 
 	@Override
 	public Items update() {

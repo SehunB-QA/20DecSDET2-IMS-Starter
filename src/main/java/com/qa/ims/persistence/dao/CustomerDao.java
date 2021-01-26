@@ -32,7 +32,7 @@ public class CustomerDao implements IDomainDao<Customer> {
             LOGGER.error(e.getMessage());
         }
         return null;
-    }
+    } 
 
     public Customer read(Long id) {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();

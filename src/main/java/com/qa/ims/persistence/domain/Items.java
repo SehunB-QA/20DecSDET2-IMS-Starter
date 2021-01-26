@@ -7,7 +7,7 @@ public class Items {
 	private Double itemsPrice;
 
 	public Items(String itemsName, Double itemsPrice) {
-		this.setItemsName(itemsName);
+		this.setItemsName(itemsName); 
 		this.setItemsPrice(itemsPrice);
 	}
 
@@ -15,6 +15,10 @@ public class Items {
 		this.setItemsID(itemsID);
 		this.setItemsName(itemsName);
 		this.setItemsPrice(itemsPrice);
+	}
+
+	public Items() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getItemsId() {

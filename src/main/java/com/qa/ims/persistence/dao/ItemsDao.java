@@ -59,7 +59,7 @@ public class ItemsDao implements IDomainDao<Items>  {
             List<Items> items = new ArrayList<>();
             while (resultSet.next()) {
                 items.add(modelFromResultSet(resultSet));
-            }
+            } 
             return items;
         } catch (SQLException e) {
             LOGGER.debug(e);
