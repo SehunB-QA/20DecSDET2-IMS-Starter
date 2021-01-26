@@ -16,3 +16,10 @@ CREATE TABLE IF NOT EXISTS `items`(
   PRIMARY KEY (`id_items`)
   );
 
+
+CREATE TABLE IF NOT EXISTS `ims`.`order_items` (
+    `fk_orders_id` INT(11),
+    FOREIGN KEY (fk_orders_id) REFERENCES orders(orders_id),
+    `fk_id_items` INT(11),
+    FOREIGN KEY (fk_id_items) REFERENCES items(id_items)  
+);
