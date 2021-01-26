@@ -77,7 +77,7 @@ public class IMSEntryPoint {
             if (action == ActionMenu.RETURN) {
                 changeDomain = true;
             } else {
-                chooseAction(active, action);
+                chooseAction(active, action); 
             }
         } while (!changeDomain);
     }

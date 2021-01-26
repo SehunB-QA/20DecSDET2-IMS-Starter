@@ -26,7 +26,7 @@ public class OrdersController implements ICrudController<Orders> {
 	 private Items items = new Items();
 	
 	 
-	 public List<Customer> customerList = new ArrayList<>();
+	 
 
 	    public OrdersController(OrdersDao ordersDao, JavaUtilities javaUtilities) {
 	        super();
@@ -34,20 +34,20 @@ public class OrdersController implements ICrudController<Orders> {
 	        this.javaUtilities = javaUtilities;
 	    }
 	    
-	    public Long Search(Long customerID) 
-	    {
-	    	
-	    	  for (Customer id : customerList)
-	    	  {
-				  if( id.getId() != null && id.getId().equals(customerID)) {
-			              // System.out.println(name);
-			         }
-			  }
-			  
-			return customerID;
-		
-		}
-	    	
+//	    public Long Search(Long customerID) 
+//	    {
+//	    	
+//	    	  for (Customer id : customerList)
+//	    	  {
+//				  if( id.getId() != null && id.getId().equals(customerID)) {
+//			              // System.out.println(name);
+//			         }
+//			  }
+//			  
+//			return customerID;
+//		
+//		}
+//	    	
 	    
 	    
 
@@ -96,11 +96,40 @@ public class OrdersController implements ICrudController<Orders> {
         LOGGER.info("Would item would you like to add by id");
         
          // store item id in variable
-        Long itemID = javaUtilities.getLong();
+       // Long itemID = javaUtilities.getLong();
         
-        if(answer == "add" || answer == "Add")
+        if(answer.equals("add") )
         {
+        	LOGGER.info("Add single item or add list");
+        	String response = javaUtilities.getString();
+        	if(response .equalsIgnoreCase("single") )
+        	{
+        	 LOGGER.info("What item ID would you like to add?");
+        	 Long itemID = javaUtilities.getLong();
+        	 Orders orders = ordersDao.AddItem(null, orderID, itemID);
+             return orders; 
+        	}
+        	else if(response.equals("list") )
+        	{
+        		String input = "";
+        		while(!input.equals("exit"))
+        		{
+        			  List<Long> itemsList = new ArrayList<>();
+            		  LOGGER.info("What item ID would you like to add?"); 
+            		  Long itemID  = javaUtilities.getLong();
+            		  LOGGER.info("Type exit to exit!");
+            		   input = javaUtilities.getString();
+            		 ordersDao.AddItem(null, orderID, itemID);
+            		
+        			
+        		}
+        		 
+        		
+        	}
         	
+        	//Orders orders = ordersDao.AddItemList(, orderID); 
+	        //LOGGER.info("Order created");
+	        //return orders;
         }
         
 		//if add -> update add in dao = return object type = order
