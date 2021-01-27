@@ -83,7 +83,7 @@ public class OrdersController implements ICrudController<Orders> {
         
         
 		//ask to add or remove item
-        LOGGER.info("Would you like to add or remove an item");
+        LOGGER.info("Would you like to add item");
         
         //store answer in variable 
         String answer = javaUtilities.getString();
@@ -93,12 +93,12 @@ public class OrdersController implements ICrudController<Orders> {
 		
         
 		//ask for item id
-        LOGGER.info("Would item would you like to add by id");
+      //  LOGGER.info("What item would you like to add by id");
         
          // store item id in variable
        // Long itemID = javaUtilities.getLong();
         
-        if(answer.equals("add") )
+        if(answer.equalsIgnoreCase("yes") )
         {
         	LOGGER.info("Add single item or add list?");
         	
@@ -177,7 +177,7 @@ public class OrdersController implements ICrudController<Orders> {
     		LOGGER.info("Please enter the id of the item you would like to delete");
             Long itemID = javaUtilities.getLong();
             LOGGER.info("Item has been deleted from your Order");
-           // return ordersDao.deleteWholeOrder(itemID);
+           return ordersDao.deleteSingleItemFromOrder(itemID);
         }
         return 0;
 	}

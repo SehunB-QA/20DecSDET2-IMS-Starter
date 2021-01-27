@@ -185,11 +185,13 @@ public class OrdersDao implements IDomainDao<Orders> {
        return 0;
    }
    
-   public int deleteSingleItemFromOrder(long orderID, long itemID) {
+   public int deleteSingleItemFromOrder(long itemID) {
 	   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-               Statement statement = connection.createStatement();) {
-           statement.executeUpdate("delete from order_items where fk_items_id = " + itemID);
-           return statement.executeUpdate("delete from orders where orders_id = " + orderID);
+			   PreparedStatement statement = connection
+                       .prepareStatement("delete from order_items where fk_id_items = (?) ");) {
+           statement.setLong(1, itemID);
+        return  statement.executeUpdate();
+         
        } catch (Exception e) {
            LOGGER.debug(e);
            LOGGER.error(e.getMessage());
