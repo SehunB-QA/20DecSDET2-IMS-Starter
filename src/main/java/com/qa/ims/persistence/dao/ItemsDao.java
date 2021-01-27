@@ -102,9 +102,11 @@ public class ItemsDao implements IDomainDao<Items>  {
 
 	@Override
 	public int delete(long itemsID) {
-		  try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-	                Statement statement = connection.createStatement();) {
-	            return statement.executeUpdate("delete from items where id_items = " + itemsID);
+		  try (Connection connection = DatabaseUtilities.getInstance().getConnection(); 
+				  PreparedStatement statement = connection
+	                        .prepareStatement("delete from items where id_items = (?) ");) {
+	            statement.setLong(1, itemsID);
+	         return statement.executeUpdate();
 	        } catch (Exception e) {
 	            LOGGER.debug(e);
 	            LOGGER.error(e.getMessage());

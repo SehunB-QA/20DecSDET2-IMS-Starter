@@ -105,11 +105,11 @@ public class OrdersDao implements IDomainDao<Orders> {
 	public List<Orders> readAll() {
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                Statement statement = connection.createStatement();
-               ResultSet resultSet = statement.executeQuery("SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.item_name, items.item_price\r\n"
+               ResultSet resultSet = statement.executeQuery("SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price\r\n"
                		+ "FROM orders\r\n"
                		+ "INNER JOIN customers ON Orders.fk_customers_id = customers.id\r\n"
                		+ "INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id\r\n"
-               		+ "INNER JOIN items On order_items.fk_id_items = items.id_items; ");) {
+               		+ "INNER JOIN items On order_items.fk_id_items = items.id_items;  ");) {
            List<Orders> orders = new ArrayList<>();
            while (resultSet.next()) {
                orders.add(readModelFromResultSet(resultSet));
@@ -154,12 +154,13 @@ public class OrdersDao implements IDomainDao<Orders> {
 	   String customerSurname  = resultSet.getString("surname");
 	   Long customerID = resultSet.getLong("id");
   	   Long ordersID = resultSet.getLong("orders_id");
+  	   Long itemID = resultSet.getLong("id_items");
 	   String itemName = resultSet.getString("item_name");
 	   Double itemPrice =  resultSet.getDouble("item_price");
   	
   	   //orders. customerID = resultSet.getLong("fk_customers_id");
   	     
-         return new Orders(ordersID, customerFirstName, customerSurname , customerID,  itemName, itemPrice);
+         return new Orders(ordersID, customerFirstName, customerSurname , customerID, itemID,  itemName, itemPrice);
          //push back a new "Orders" object containing the column values
   	}
 
@@ -167,8 +168,27 @@ public class OrdersDao implements IDomainDao<Orders> {
  
    public int deleteWholeOrder(long orderID) {
 	   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+			   
+			   PreparedStatement statement = connection
+                       .prepareStatement("delete from order_items where fk_orders_id = (?) ");) {
+           statement.setLong(1, orderID);
+         statement.executeUpdate();
+         
+         PreparedStatement statement2 = connection
+                 .prepareStatement("delete from orders where orders_id = (?) ");
+     statement2.setLong(1, orderID);
+         return statement2.executeUpdate();
+       } catch (Exception e) {
+           LOGGER.debug(e);
+           LOGGER.error(e.getMessage());
+       }
+       return 0;
+   }
+   
+   public int deleteSingleItemFromOrder(long orderID, long itemID) {
+	   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                Statement statement = connection.createStatement();) {
-           statement.executeUpdate("delete from order_items where fk_orders_id = " + orderID);
+           statement.executeUpdate("delete from order_items where fk_items_id = " + itemID);
            return statement.executeUpdate("delete from orders where orders_id = " + orderID);
        } catch (Exception e) {
            LOGGER.debug(e);
@@ -176,6 +196,7 @@ public class OrdersDao implements IDomainDao<Orders> {
        }
        return 0;
    }
+   
    
    
    

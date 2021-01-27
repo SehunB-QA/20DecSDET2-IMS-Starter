@@ -100,7 +100,7 @@ public class OrdersController implements ICrudController<Orders> {
         
         if(answer.equals("add") )
         {
-        	LOGGER.info("Add single item or add list");
+        	LOGGER.info("Add single item or add list?");
         	
         	String response = javaUtilities.getString();
         	
@@ -150,6 +150,13 @@ public class OrdersController implements ICrudController<Orders> {
 	@Override
 	public int delete() {
 		
+		
+		LOGGER.info("Would you like to delete your whole order or just an single item off your order?");
+		   //store answer in variable 
+        String answer = javaUtilities.getString();
+		
+        if(answer.equals("whole"))
+        {
 		        //Delete whole Order \\
 		
 		 //Output list of items for better experience
@@ -160,6 +167,19 @@ public class OrdersController implements ICrudController<Orders> {
         Long ordersID = javaUtilities.getLong();
         LOGGER.info("Order has been deleted");
         return ordersDao.deleteWholeOrder(ordersID);
+        }
+        
+        else if(answer.equals("single"))
+        {
+        	readAll();
+    		LOGGER.info("");
+    		//
+    		LOGGER.info("Please enter the id of the item you would like to delete");
+            Long itemID = javaUtilities.getLong();
+            LOGGER.info("Item has been deleted from your Order");
+           // return ordersDao.deleteWholeOrder(itemID);
+        }
+        return 0;
 	}
 	
 	

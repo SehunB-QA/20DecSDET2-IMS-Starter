@@ -10,11 +10,13 @@ public class Orders {
 	private List<Items> orderItems = new ArrayList<>();
 	private Customer orderCustomer;
 	
-	private Long  customerID;
+	private Long customerID;
+	private Long itemID;
 	private String customerFirstName;
 	private String customerSurname;
 	private String itemName;
 	private Double itemPrice;
+	
 	
 	public Orders(Long orderID,  List<Items> orderItems, Customer orderCustomer, Double totalOrderPrice) {
 		super();
@@ -26,12 +28,13 @@ public class Orders {
 	
 	
 	//this one
-	public Orders(Long orderID, String customerFirstName, String customerSurname , Long customerID, String itemName, Double itemPrice) {
+	public Orders(Long orderID, String customerFirstName, String customerSurname , Long customerID, Long itemID, String itemName, Double itemPrice) {
 		super();
 		this.orderID = orderID;
 		this.customerFirstName = customerFirstName;
 		this.customerSurname = customerSurname;
 	    this.customerID = customerID;
+	    this.itemID = itemID;
 	    this.itemName = itemName;
 	    this.itemPrice = itemPrice;
 	    
@@ -108,7 +111,7 @@ public class Orders {
 	@Override
 	public String toString() {
 		return  "Order ID: " + orderID + " Customer's first name: " + customerFirstName +
-				" Surname: " + customerSurname +  " " +  "Customer ID: " + customerID  + " Item Name : " + itemName + " Item Price: " + "£" +   itemPrice;
+				" Surname: " + customerSurname +  " " +  "Customer ID: " + customerID  + " "  + "Item ID: " + itemID  + " Item Name : " + itemName + " Item Price: " + "£" +   itemPrice;
 		
 	}
 
