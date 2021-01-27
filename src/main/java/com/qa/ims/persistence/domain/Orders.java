@@ -60,6 +60,11 @@ public class Orders {
 	public Orders() {}
 
 
+	public Orders(Long customerID2) {
+		this.customerID = customerID2;
+	}
+
+
 	public Long getOrderID() {
 		return orderID;
 	}

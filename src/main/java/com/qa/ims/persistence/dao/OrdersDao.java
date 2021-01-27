@@ -112,7 +112,7 @@ public class OrdersDao implements IDomainDao<Orders> {
                		+ "INNER JOIN items On order_items.fk_id_items = items.id_items; ");) {
            List<Orders> orders = new ArrayList<>();
            while (resultSet.next()) {
-               orders.add(modelFromResultSet(resultSet));
+               orders.add(readModelFromResultSet(resultSet));
            }
            return orders;
        } catch (SQLException e) {
@@ -137,18 +137,18 @@ public class OrdersDao implements IDomainDao<Orders> {
    }
 	
    
-//   @Override
-//	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
-//	   
-//	   Long ordersID = resultSet.getLong("fk_orders_id");
-//	   //orders. customerID = resultSet.getLong("fk_customers_id");
-//	     
-//       return new Orders(ordersID,orders.getOrderItems(), customer, orders.getTotalOrderPrice());
-//       //push back a new "Orders" object containing the column values
-//	}
-   
    @Override
-  	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
+	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
+	   
+	   Long customerID = resultSet.getLong("fk_customers_id");
+	   //orders. customerID = resultSet.getLong("fk_customers_id");
+	     
+       return new Orders(customerID);
+       //push back a new "Orders" object containing the column values
+	}
+   
+  
+  	public Orders readModelFromResultSet(ResultSet resultSet) throws SQLException {
   	   
 	   String customerFirstName = resultSet.getString("first_name");
 	   String customerSurname  = resultSet.getString("surname");
@@ -168,7 +168,8 @@ public class OrdersDao implements IDomainDao<Orders> {
    public int deleteWholeOrder(long orderID) {
 	   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                Statement statement = connection.createStatement();) {
-           return statement.executeUpdate("delete from order_items where fk_orders_id = " + orderID);
+           statement.executeUpdate("delete from order_items where fk_orders_id = " + orderID);
+           return statement.executeUpdate("delete from orders where orders_id = " + orderID);
        } catch (Exception e) {
            LOGGER.debug(e);
            LOGGER.error(e.getMessage());
