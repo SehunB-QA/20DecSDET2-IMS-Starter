@@ -101,14 +101,19 @@ public class OrdersController implements ICrudController<Orders> {
         if(answer.equals("add") )
         {
         	LOGGER.info("Add single item or add list");
+        	
         	String response = javaUtilities.getString();
+        	
         	if(response .equalsIgnoreCase("single") )
+        		
         	{
         	 LOGGER.info("What item ID would you like to add?");
         	 Long itemID = javaUtilities.getLong();
         	 Orders orders = ordersDao.AddItem(null, orderID, itemID);
              return orders; 
         	}
+        	
+        	
         	else if(response.equals("list") )
         	{
         		String input = "";

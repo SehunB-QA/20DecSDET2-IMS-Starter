@@ -54,42 +54,35 @@ public class OrdersDao implements IDomainDao<Orders> {
 	        return null;
 		}
 	   
-		public List<Long> AddItemList(List<Long> itemsa, Long orderID)
-		{
-			
-			try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-					PreparedStatement statement = connection
-							.prepareStatement("INSERT INTO order_items(fk_orders_id, fk_id_items) VALUES (?,?)");) {
-				
-				for(Long items : itemsa)
-				{
-					statement.setLong(1, orderID);
-					statement.setLong(2, items);
-					statement.executeUpdate();
-					itemsList.add(items);
-				}
-				
-				
-				return itemsList;
-				
-				
-			} 
-		   catch (Exception e) {
-	            LOGGER.debug(e);
-	            LOGGER.error(e.getMessage());
-	        }
-			
-			
-			
-			
-				
-			
-			return null ;
-			
-			
-			
-		}
-		
+		/*
+		 * public List<Long> AddItemList(List<Long> itemsa, Long orderID) {
+		 * 
+		 * try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+		 * PreparedStatement statement = connection
+		 * .prepareStatement("INSERT INTO order_items(fk_orders_id, fk_id_items) VALUES (?,?)"
+		 * );) {
+		 * 
+		 * for(Long items : itemsa) { statement.setLong(1, orderID);
+		 * statement.setLong(2, items); statement.executeUpdate(); itemsList.add(items);
+		 * }
+		 * 
+		 * 
+		 * return itemsList;
+		 * 
+		 * 
+		 * } catch (Exception e) { LOGGER.debug(e); LOGGER.error(e.getMessage()); }
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * return null ;
+		 * 
+		 * 
+		 * 
+		 * }
+		 */
 	   
 	   
 	   public Orders read(Long id) {
@@ -112,7 +105,11 @@ public class OrdersDao implements IDomainDao<Orders> {
 	public List<Orders> readAll() {
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                Statement statement = connection.createStatement();
-               ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
+               ResultSet resultSet = statement.executeQuery("SELECT orders.orders_id, customers.first_name, customers.surname, items.item_name, items.item_price\r\n"
+               		+ "FROM orders\r\n"
+               		+ "INNER JOIN customers ON Orders.fk_customers_id = customers.id\r\n"
+               		+ "INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id\r\n"
+               		+ "INNER JOIN items On order_items.fk_id_items = items.id_items; ");) {
            List<Orders> orders = new ArrayList<>();
            while (resultSet.next()) {
                orders.add(modelFromResultSet(resultSet));
@@ -140,14 +137,35 @@ public class OrdersDao implements IDomainDao<Orders> {
    }
 	
    
+//   @Override
+//	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
+//	   
+//	   Long ordersID = resultSet.getLong("fk_orders_id");
+//	   //orders. customerID = resultSet.getLong("fk_customers_id");
+//	     
+//       return new Orders(ordersID,orders.getOrderItems(), customer, orders.getTotalOrderPrice());
+//       //push back a new "Orders" object containing the column values
+//	}
+   
    @Override
-	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
-	   
-	   Long ordersID = resultSet.getLong("orders_id");
-	   //orders. customerID = resultSet.getLong("fk_customers_id");
-       return new Orders(ordersID,orders.getOrderItems(), customer, orders.getTotalOrderPrice());
-       //push back a new "Orders" object containing the column values
-	}
+  	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
+  	   
+	   String customerFirstName = resultSet.getString("first_name");
+	   String customerSurname  = resultSet.getString("surname");
+	  //Long customerID = resultSet.getLong("orders_id");
+  	   Long ordersID = resultSet.getLong("orders_id");
+	   String itemName = resultSet.getString("item_name");
+	   Double itemPrice =  resultSet.getDouble("item_price");
+  	
+  	   //orders. customerID = resultSet.getLong("fk_customers_id");
+  	     
+         return new Orders(ordersID, customerFirstName, customerSurname , null,  itemName, itemPrice);
+         //push back a new "Orders" object containing the column values
+  	}
+
+   
+   
+   
 
 @Override
 public Orders update(Orders orders) {
