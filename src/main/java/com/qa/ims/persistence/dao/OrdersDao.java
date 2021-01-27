@@ -105,7 +105,7 @@ public class OrdersDao implements IDomainDao<Orders> {
 	public List<Orders> readAll() {
 		try (Connection connection = DatabaseUtilities.getInstance().getConnection();
                Statement statement = connection.createStatement();
-               ResultSet resultSet = statement.executeQuery("SELECT orders.orders_id, customers.first_name, customers.surname, items.item_name, items.item_price\r\n"
+               ResultSet resultSet = statement.executeQuery("SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.item_name, items.item_price\r\n"
                		+ "FROM orders\r\n"
                		+ "INNER JOIN customers ON Orders.fk_customers_id = customers.id\r\n"
                		+ "INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id\r\n"
@@ -152,14 +152,14 @@ public class OrdersDao implements IDomainDao<Orders> {
   	   
 	   String customerFirstName = resultSet.getString("first_name");
 	   String customerSurname  = resultSet.getString("surname");
-	  //Long customerID = resultSet.getLong("orders_id");
+	   Long customerID = resultSet.getLong("id");
   	   Long ordersID = resultSet.getLong("orders_id");
 	   String itemName = resultSet.getString("item_name");
 	   Double itemPrice =  resultSet.getDouble("item_price");
   	
   	   //orders. customerID = resultSet.getLong("fk_customers_id");
   	     
-         return new Orders(ordersID, customerFirstName, customerSurname , null,  itemName, itemPrice);
+         return new Orders(ordersID, customerFirstName, customerSurname , customerID,  itemName, itemPrice);
          //push back a new "Orders" object containing the column values
   	}
 
