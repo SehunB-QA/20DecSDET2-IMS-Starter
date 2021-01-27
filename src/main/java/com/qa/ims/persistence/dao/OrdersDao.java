@@ -164,6 +164,18 @@ public class OrdersDao implements IDomainDao<Orders> {
   	}
 
    
+ 
+   public int deleteWholeOrder(long orderID) {
+	   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+               Statement statement = connection.createStatement();) {
+           return statement.executeUpdate("delete from order_items where fk_orders_id = " + orderID);
+       } catch (Exception e) {
+           LOGGER.debug(e);
+           LOGGER.error(e.getMessage());
+       }
+       return 0;
+   }
+   
    
    
 

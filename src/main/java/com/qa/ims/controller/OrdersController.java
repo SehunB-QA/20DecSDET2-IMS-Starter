@@ -75,7 +75,7 @@ public class OrdersController implements ICrudController<Orders> {
 
 	@Override
 	public Orders update() {
-		// TODO Auto-generated method stub
+	
 		
 		//to do: ask for an order id -store in variable, 
 		LOGGER.info("Please enter your order id");
@@ -104,6 +104,7 @@ public class OrdersController implements ICrudController<Orders> {
         	
         	String response = javaUtilities.getString();
         	
+                      // Add Single Item \\         	
         	if(response .equalsIgnoreCase("single") )
         		
         	{
@@ -113,7 +114,7 @@ public class OrdersController implements ICrudController<Orders> {
              return orders; 
         	}
         	
-        	
+        	  // Add multiple items \\ 
         	else if(response.equals("list") )
         	{
         		String input = "";
@@ -148,8 +149,19 @@ public class OrdersController implements ICrudController<Orders> {
 
 	@Override
 	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		        //Delete whole Order \\
+		
+		 //Output list of items for better experience
+		readAll();
+		LOGGER.info("");
+		//
+		LOGGER.info("Please enter the id of the order you would like to delete");
+        Long ordersID = javaUtilities.getLong();
+        LOGGER.info("Order has been deleted");
+        return ordersDao.deleteWholeOrder(ordersID);
 	}
+	
+	
 
 }
