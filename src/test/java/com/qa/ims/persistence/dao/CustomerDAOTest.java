@@ -53,7 +53,7 @@ public class CustomerDAOTest {
     }
 
     @Test
-    public void testDelete() {
-        assertEquals(1, DAO.delete(1));
+    public void testDeleteCustomerWithoutOrders() {
+        assertEquals(1, DAO.deleteCustomerWithoutOrders(1));
     }
 }

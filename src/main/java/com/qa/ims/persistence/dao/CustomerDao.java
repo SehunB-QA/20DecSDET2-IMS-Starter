@@ -94,9 +94,25 @@ public class CustomerDao implements IDomainDao<Customer> {
         }
         return null;
     }
-
-    @Override
-    public int delete(long id) {
+    
+    
+    public int deleteCustomerWithoutOrders(long id) {
+        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+        		 
+        	
+        		PreparedStatement statement = connection
+                        .prepareStatement("delete from customers where id = (?) ");){
+            statement.setLong(1, id);
+         return statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return 0;
+    }
+    
+    
+    public int deleteCustomerWithOrders(long id) {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();
         		 
         		PreparedStatement statement2 = connection
@@ -112,6 +128,17 @@ public class CustomerDao implements IDomainDao<Customer> {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }
+        return 0;
+    }
+    
+    
+    
+    
+    
+
+    @Override
+    public int delete(long id) {
+     
         return 0;
     }
 

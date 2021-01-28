@@ -59,7 +59,7 @@ public class CustomerController implements ICrudController<Customer> {
     @Override
     public int delete() {
     	
-   	 LOGGER.info("Do you have any pending orders with your custome account?");
+   	 LOGGER.info("Do you have any pending orders with your customer account?");
    	 String answer = javaUtilities.getString();
    	 if(answer.equalsIgnoreCase("yes"))
    	 {
@@ -70,7 +70,7 @@ public class CustomerController implements ICrudController<Customer> {
    	
        LOGGER.info("Please enter the id of the customer you would like to delete");
        Long id = javaUtilities.getLong();
-       return customerDao.delete(id);
+       return customerDao.deleteCustomerWithOrders(id);
    		 
    	 }
    	 
@@ -79,7 +79,7 @@ public class CustomerController implements ICrudController<Customer> {
 
          LOGGER.info("Please enter the id of the customer you would like to delete");
          Long id = javaUtilities.getLong();
-         return customerDao.delete(id);
+         return customerDao.deleteCustomerWithoutOrders(id);
    		 
    	 }
    	 
