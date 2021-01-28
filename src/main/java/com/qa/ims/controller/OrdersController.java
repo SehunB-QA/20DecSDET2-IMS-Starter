@@ -14,7 +14,7 @@ import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.utils.JavaUtilities;
 
 
-public class OrdersController implements ICrudController<Orders> {
+public class OrdersController implements ICrudController<Orders>, OrdersTotalPriceController<Orders> {
 	
 	public static final Logger LOGGER = LogManager.getLogger();
 	
@@ -57,7 +57,20 @@ public class OrdersController implements ICrudController<Orders> {
         for (Orders order : orders) {
             LOGGER.info(order);
         }
+        
+        LOGGER.info("Would you like to calculate your total order?");
+        String answer = javaUtilities.getString();
+        
+        if(answer.equalsIgnoreCase("yes")) {
+        	totalOrderPrice();
+        	return orders;
+        }
+        
+        else
+        {
         return orders;
+        }
+        
 	}
 
 	@Override
@@ -180,6 +193,21 @@ public class OrdersController implements ICrudController<Orders> {
            return ordersDao.deleteSingleItemFromOrder(itemID);
         }
         return 0;
+	}
+
+	@Override
+	public Orders totalOrderPrice() {
+
+		  LOGGER.info("Please enter the order id");
+	        Long orderID = javaUtilities.getLong();
+	      
+	        LOGGER.info(ordersDao.calculateTotalOrder(orderID));
+	        return ordersDao.calculateTotalOrder(orderID);
+	        
+	       
+	        
+	        
+	        
 	}
 	
 	

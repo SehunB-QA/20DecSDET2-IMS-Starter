@@ -100,16 +100,18 @@ public class OrdersDao implements IDomainDao<Orders> {
 	    }
 	   
 	   
-	   public Orders calculateTotalOrder(Double totalOrderPrice) {
+	   public Orders calculateTotalOrder(Long orderID) {
 		   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-	                PreparedStatement statement = connection.prepareStatement("SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,\r\n"
-	                		+ "					sum(item_price) As total_order_price\r\n"
-	                		+ "FROM orders\r\n"
-	                		+ "INNER JOIN customers ON Orders.fk_customers_id = customers.id\r\n"
-	                		+ "INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id\r\n"
-	                		+ "INNER JOIN items On order_items.fk_id_items = items.id_items; \r\n"
-	                		+ "");) {
-	            statement.setDouble(1, totalOrderPrice);
+	                PreparedStatement statement = connection.prepareStatement("	SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,\r\n"
+	                		+ "             sum(case when orders.orders_id = ? then items.item_price else 0 end) as total_order_price\r\n"
+	                		+ "          FROM orders\r\n"
+	                		+ "          INNER JOIN customers ON Orders.fk_customers_id = customers.id\r\n"
+	                		+ "          INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id\r\n"
+	                		+ "          INNER JOIN items On order_items.fk_id_items = items.id_items\r\n"
+	                		+ "		   where orders.orders_id = ?;\r\n"
+	                		+ "	");) {
+	            statement.setLong(1, orderID);
+	            statement.setLong(2, orderID);
 	            ResultSet resultSet = statement.executeQuery();
 	            resultSet.next();
 	            return totalPriceResultSet(resultSet);
@@ -118,7 +120,6 @@ public class OrdersDao implements IDomainDao<Orders> {
 	            LOGGER.error(e.getMessage());
 	        }
 	        return null;
-	       
 	    }
 	   
 	   
@@ -173,11 +174,18 @@ public class OrdersDao implements IDomainDao<Orders> {
    
   public Orders totalPriceResultSet(ResultSet resultSet) throws SQLException {
 	   
-	   Double totalPrice = resultSet.getDouble("total_order_price");
-	  
-	     
-       return new Orders(totalPrice);
-       //push back a new "Orders" object containing the column values
+	  String customerFirstName = resultSet.getString("first_name");
+	   String customerSurname  = resultSet.getString("surname");
+	   Long customerID = resultSet.getLong("id");
+ 	   Long ordersID = resultSet.getLong("orders_id");
+ 	   Long itemID = resultSet.getLong("id_items");
+	   String itemName = resultSet.getString("item_name");
+	   Double totalitemPrice =  resultSet.getDouble("total_order_price");
+ 	
+ 	   //orders. customerID = resultSet.getLong("fk_customers_id");
+ 	     
+        return new Orders(ordersID, customerFirstName, customerSurname , customerID, itemID,  itemName, totalitemPrice);
+        //push back a new "Orders" object containing the column values
 	}
    
    
