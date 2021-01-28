@@ -181,10 +181,10 @@ public class OrdersDao implements IDomainDao<Orders> {
  	   Long itemID = resultSet.getLong("id_items");
 	   String itemName = resultSet.getString("item_name");
 	   Double totalitemPrice =  resultSet.getDouble("total_order_price");
- 	
+ 	String dummyString = "";
  	   //orders. customerID = resultSet.getLong("fk_customers_id");
  	     
-        return new Orders(ordersID, customerFirstName, customerSurname , customerID, itemID,  itemName, totalitemPrice);
+        return new Orders(ordersID, customerFirstName, customerSurname , customerID, itemID,  itemName, totalitemPrice, dummyString);
         //push back a new "Orders" object containing the column values
 	}
    

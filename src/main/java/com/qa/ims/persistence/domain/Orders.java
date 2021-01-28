@@ -16,6 +16,7 @@ public class Orders {
 	private String customerSurname;
 	private String itemName;
 	private Double itemPrice;
+	private String dummyString;
 	
 	
 	public Orders(Long orderID,  List<Items> orderItems, Customer orderCustomer, Double totalOrderPrice) {
@@ -39,6 +40,22 @@ public class Orders {
 	    this.itemPrice = itemPrice;
 	    
 	}
+	
+	//this one
+		public Orders(Long orderID, String customerFirstName, String customerSurname , Long customerID, Long itemID, String itemName, Double totalOrderPrice, String dummyString) {
+			super();
+			this.orderID = orderID;
+			this.customerFirstName = customerFirstName;
+			this.customerSurname = customerSurname;
+		    this.customerID = customerID;
+		    this.itemID = itemID;
+		    this.totalOrderPrice = totalOrderPrice;
+		    this.dummyString = dummyString;
+		    
+		}
+	
+	
+	
 	
 	public Orders(Customer orderCustomer, Long orderID) {
 		super();
@@ -116,10 +133,14 @@ public class Orders {
 	@Override
 	public String toString() {
 		return  "Order ID: " + orderID + " Customer's first name: " + customerFirstName +
-				" Surname: " + customerSurname +  " " +  "Customer ID: " + customerID  + " "  + "Item ID: " + itemID  + " Item Name : " + itemName + " Item Price: " + "£" +   itemPrice;
+				" Surname: " + customerSurname +  " " +  "Customer ID: " + customerID  + " "  + "Item ID: " + itemID  + " Item Name : " + itemName + " Item Price: " + "£" +   itemPrice
++ "Total Order Price: " + totalOrderPrice;
 		
 	}
 
+	
+	
+	
 
 	@Override
 	public int hashCode() {
