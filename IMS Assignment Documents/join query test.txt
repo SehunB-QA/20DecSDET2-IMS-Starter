@@ -72,3 +72,12 @@ SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, 
                		INNER JOIN customers ON Orders.fk_customers_id = customers.id
                		INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
                		INNER JOIN items On order_items.fk_id_items = items.id_items;
+					
+					
+					
+					SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+					sum(item_price)
+FROM orders
+INNER JOIN customers ON Orders.fk_customers_id = customers.id
+INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
+INNER JOIN items On order_items.fk_id_items = items.id_items; 

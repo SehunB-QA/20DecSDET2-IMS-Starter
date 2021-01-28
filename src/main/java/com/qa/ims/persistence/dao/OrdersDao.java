@@ -100,6 +100,30 @@ public class OrdersDao implements IDomainDao<Orders> {
 	    }
 	   
 	   
+	   public Orders calculateTotalOrder(Double totalOrderPrice) {
+		   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+	                PreparedStatement statement = connection.prepareStatement("SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,\r\n"
+	                		+ "					sum(item_price) As total_order_price\r\n"
+	                		+ "FROM orders\r\n"
+	                		+ "INNER JOIN customers ON Orders.fk_customers_id = customers.id\r\n"
+	                		+ "INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id\r\n"
+	                		+ "INNER JOIN items On order_items.fk_id_items = items.id_items; \r\n"
+	                		+ "");) {
+	            statement.setDouble(1, totalOrderPrice);
+	            ResultSet resultSet = statement.executeQuery();
+	            resultSet.next();
+	            return totalPriceResultSet(resultSet);
+	        } catch (Exception e) {
+	            LOGGER.debug(e);
+	            LOGGER.error(e.getMessage());
+	        }
+	        return null;
+	       
+	    }
+	   
+	   
+	   
+	   
 	   
 	@Override
 	public List<Orders> readAll() {
@@ -146,6 +170,17 @@ public class OrdersDao implements IDomainDao<Orders> {
        return new Orders(customerID);
        //push back a new "Orders" object containing the column values
 	}
+   
+  public Orders totalPriceResultSet(ResultSet resultSet) throws SQLException {
+	   
+	   Double totalPrice = resultSet.getDouble("total_order_price");
+	  
+	     
+       return new Orders(totalPrice);
+       //push back a new "Orders" object containing the column values
+	}
+   
+   
    
   
   	public Orders readModelFromResultSet(ResultSet resultSet) throws SQLException {

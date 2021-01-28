@@ -67,6 +67,11 @@ public class Orders {
 		this.customerID = customerID2;
 	}
 
+	public Orders(Double totalOrderPrice) {
+		this.totalOrderPrice = totalOrderPrice;
+	}
+
+	
 
 	public Long getOrderID() {
 		return orderID;
