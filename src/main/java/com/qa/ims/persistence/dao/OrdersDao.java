@@ -223,7 +223,7 @@ public class OrdersDao implements IDomainDao<Orders> {
          return statement2.executeUpdate();
        } catch (Exception e) {
            LOGGER.debug(e);
-           LOGGER.error(e.getMessage());
+           LOGGER.error(e.getMessage()); 
        }
        return 0;
    }

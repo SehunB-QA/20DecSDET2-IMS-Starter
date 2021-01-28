@@ -146,6 +146,13 @@ public class Orders {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((customerFirstName == null) ? 0 : customerFirstName.hashCode());
+		result = prime * result + ((customerID == null) ? 0 : customerID.hashCode());
+		result = prime * result + ((customerSurname == null) ? 0 : customerSurname.hashCode());
+		result = prime * result + ((dummyString == null) ? 0 : dummyString.hashCode());
+		result = prime * result + ((itemID == null) ? 0 : itemID.hashCode());
+		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
+		result = prime * result + ((itemPrice == null) ? 0 : itemPrice.hashCode());
 		result = prime * result + ((orderCustomer == null) ? 0 : orderCustomer.hashCode());
 		result = prime * result + ((orderID == null) ? 0 : orderID.hashCode());
 		result = prime * result + ((orderItems == null) ? 0 : orderItems.hashCode());
@@ -163,6 +170,41 @@ public class Orders {
 		if (getClass() != obj.getClass())
 			return false;
 		Orders other = (Orders) obj;
+		if (customerFirstName == null) {
+			if (other.customerFirstName != null)
+				return false;
+		} else if (!customerFirstName.equals(other.customerFirstName))
+			return false;
+		if (customerID == null) {
+			if (other.customerID != null)
+				return false;
+		} else if (!customerID.equals(other.customerID))
+			return false;
+		if (customerSurname == null) {
+			if (other.customerSurname != null)
+				return false;
+		} else if (!customerSurname.equals(other.customerSurname))
+			return false;
+		if (dummyString == null) {
+			if (other.dummyString != null)
+				return false;
+		} else if (!dummyString.equals(other.dummyString))
+			return false;
+		if (itemID == null) {
+			if (other.itemID != null)
+				return false;
+		} else if (!itemID.equals(other.itemID))
+			return false;
+		if (itemName == null) {
+			if (other.itemName != null)
+				return false;
+		} else if (!itemName.equals(other.itemName))
+			return false;
+		if (itemPrice == null) {
+			if (other.itemPrice != null)
+				return false;
+		} else if (!itemPrice.equals(other.itemPrice))
+			return false;
 		if (orderCustomer == null) {
 			if (other.orderCustomer != null)
 				return false;

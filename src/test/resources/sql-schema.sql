@@ -1,4 +1,8 @@
+DROP TABLE IF EXISTS `order_items`;
+DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `items`;
+
 
 CREATE TABLE IF NOT EXISTS `customers` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -16,18 +20,4 @@ CREATE TABLE IF NOT EXISTS `items`(
   PRIMARY KEY (`id_items`)
   );
 
-
-CREATE TABLE  `ims`.``orders` (
-  `orders_id` int NOT NULL AUTO_INCREMENT,
-  `fk_customers_id` int NOT NULL,
-  PRIMARY KEY (`orders_id`,`fk_customers_id`),
-  KEY `fk_orders_customers_idx` (`fk_customers_id`),
-  CONSTRAINT `fk_orders_customers` FOREIGN KEY (`fk_customers_id`) REFERENCES `customers` (`id`));
-
-  CREATE TABLE  `ims`.`order_items` (
-  `fk_orders_id` int DEFAULT NULL,
-  `fk_id_items` int DEFAULT NULL,
-  KEY `fk_orders_id` (`fk_orders_id`),
-  KEY `fk_id_items` (`fk_id_items`),
-  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`fk_orders_id`) REFERENCES `orders` (`orders_id`),
-  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`fk_id_items`) REFERENCES `items` (`id_items`));
+  
