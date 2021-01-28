@@ -17,16 +17,17 @@ CREATE TABLE IF NOT EXISTS `items`(
   );
 
 
-CREATE TABLE IF NOT EXISTS `ims`.`order_items` (
-    `fk_orders_id` INT(11),
-    FOREIGN KEY (fk_orders_id) REFERENCES orders(orders_id),
-    `fk_id_items` INT(11),
-    FOREIGN KEY (fk_id_items) REFERENCES items(id_items)  
-);
+CREATE TABLE  `ims`.``orders` (
+  `orders_id` int NOT NULL AUTO_INCREMENT,
+  `fk_customers_id` int NOT NULL,
+  PRIMARY KEY (`orders_id`,`fk_customers_id`),
+  KEY `fk_orders_customers_idx` (`fk_customers_id`),
+  CONSTRAINT `fk_orders_customers` FOREIGN KEY (`fk_customers_id`) REFERENCES `customers` (`id`));
 
-
-SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.item_name, items.item_price
-FROM orders
-INNER JOIN customers ON Orders.fk_customers_id = customers.id
-INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
-INNER JOIN items On order_items.fk_id_items = items.id_items; 
+  CREATE TABLE  `ims`.`order_items` (
+  `fk_orders_id` int DEFAULT NULL,
+  `fk_id_items` int DEFAULT NULL,
+  KEY `fk_orders_id` (`fk_orders_id`),
+  KEY `fk_id_items` (`fk_id_items`),
+  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`fk_orders_id`) REFERENCES `orders` (`orders_id`),
+  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`fk_id_items`) REFERENCES `items` (`id_items`));

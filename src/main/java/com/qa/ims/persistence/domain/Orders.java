@@ -134,7 +134,7 @@ public class Orders {
 	public String toString() {
 		return  "Order ID: " + orderID + " Customer's first name: " + customerFirstName +
 				" Surname: " + customerSurname +  " " +  "Customer ID: " + customerID  + " "  + "Item ID: " + itemID  + " Item Name : " + itemName + " Item Price: " + "£" +   itemPrice
-+ "Total Order Price: " + totalOrderPrice;
++ " " +"Total Order Price: " +  "£" + totalOrderPrice;
 		
 	}
 
