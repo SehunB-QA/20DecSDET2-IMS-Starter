@@ -14,8 +14,7 @@ Make sure the prerequisites are installed, ensure environment variables for Java
 Java 11 - Run the program
 MySQL - For the database and crud functions
 Git - Clone repo down 
-Apache Mave
-n - Run Unit tests
+Apache Maven - Run Unit tests
 ```
 ### Installing
 
