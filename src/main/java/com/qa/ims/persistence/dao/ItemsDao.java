@@ -59,7 +59,7 @@ public class ItemsDao implements IDomainDao<Items>  {
             List<Items> items = new ArrayList<>();
             while (resultSet.next()) {
                 items.add(modelFromResultSet(resultSet));
-            }
+            } 
             return items;
         } catch (SQLException e) {
             LOGGER.debug(e);
@@ -102,15 +102,43 @@ public class ItemsDao implements IDomainDao<Items>  {
 
 	@Override
 	public int delete(long itemsID) {
-		  try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-	                Statement statement = connection.createStatement();) {
-	            return statement.executeUpdate("delete from items where id_items = " + itemsID);
+		  try (Connection connection = DatabaseUtilities.getInstance().getConnection(); 
+				  PreparedStatement statement = connection
+	                        .prepareStatement("delete from items where id_items = (?) ");) {
+	            statement.setLong(1, itemsID);
+	         return statement.executeUpdate();
 	        } catch (Exception e) {
 	            LOGGER.debug(e);
 	            LOGGER.error(e.getMessage());
 	        }
 	        return 0;
 	}
+	
+
+	   public int deleteItemsWithOrder(long orderID) {
+		   try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+				   
+				   PreparedStatement statement = connection
+	                       .prepareStatement("delete from order_items where fk_id_items = (?) ");) {
+	           statement.setLong(1, orderID);
+	         statement.executeUpdate();
+	         
+	         PreparedStatement statement2 = connection
+	                 .prepareStatement("delete from items where id_items = (?) ");
+	     statement2.setLong(1, orderID);
+	         return statement2.executeUpdate();
+	       } catch (Exception e) {
+	           LOGGER.debug(e);
+	           LOGGER.error(e.getMessage()); 
+	       }
+	       return 0;
+	   }
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public Items modelFromResultSet(ResultSet resultSet) throws SQLException {

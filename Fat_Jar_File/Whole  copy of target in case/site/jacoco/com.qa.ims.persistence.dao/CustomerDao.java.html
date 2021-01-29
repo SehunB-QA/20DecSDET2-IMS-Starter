@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ims</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.persistence.dao</a> &gt; <span class="el_source">CustomerDao.java</span></div><h1>CustomerDao.java</h1><pre class="source lang-java linenums">package com.qa.ims.persistence.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.utils.DatabaseUtilities;
+
+<span class="fc" id="L17">public class CustomerDao implements IDomainDao&lt;Customer&gt; {</span>
+
+<span class="fc" id="L19">    public static final Logger LOGGER = LogManager.getLogger();</span>
+
+    @Override
+    public Customer create(Customer customer) {
+<span class="fc" id="L23">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+<span class="fc" id="L24">                PreparedStatement statement = connection</span>
+<span class="fc" id="L25">                        .prepareStatement(&quot;INSERT INTO customers(first_name, surname) VALUES (?, ?)&quot;);) {</span>
+<span class="fc" id="L26">            statement.setString(1, customer.getFirstName());</span>
+<span class="fc" id="L27">            statement.setString(2, customer.getSurname());</span>
+<span class="fc" id="L28">            statement.executeUpdate();</span>
+<span class="fc" id="L29">            return readLatest();</span>
+<span class="nc" id="L30">        } catch (Exception e) {</span>
+<span class="nc" id="L31">            LOGGER.debug(e);</span>
+<span class="nc" id="L32">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L34">        return null;</span>
+    } 
+
+    public Customer read(Long id) {
+<span class="fc" id="L38">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+<span class="fc" id="L39">                PreparedStatement statement = connection.prepareStatement(&quot;SELECT * FROM customers WHERE id = ?&quot;);) {</span>
+<span class="fc" id="L40">            statement.setLong(1, id);</span>
+<span class="fc" id="L41">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="fc" id="L42">            resultSet.next();</span>
+<span class="fc" id="L43">            return modelFromResultSet(resultSet);</span>
+<span class="nc" id="L44">        } catch (Exception e) {</span>
+<span class="nc" id="L45">            LOGGER.debug(e);</span>
+<span class="nc" id="L46">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L48">        return null;</span>
+    }
+
+    @Override
+    public List&lt;Customer&gt; readAll() {
+<span class="fc" id="L53">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+<span class="fc" id="L54">                Statement statement = connection.createStatement();</span>
+<span class="fc" id="L55">                ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM customers&quot;);) {</span>
+<span class="fc" id="L56">            List&lt;Customer&gt; customers = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            while (resultSet.next()) {</span>
+<span class="fc" id="L58">                customers.add(modelFromResultSet(resultSet));</span>
+            }
+<span class="fc" id="L60">            return customers;</span>
+<span class="nc" id="L61">        } catch (SQLException e) {</span>
+<span class="nc" id="L62">            LOGGER.debug(e);</span>
+<span class="nc" id="L63">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L65">        return new ArrayList&lt;&gt;();</span>
+    }
+
+    public Customer readLatest() {
+<span class="fc" id="L69">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+<span class="fc" id="L70">                Statement statement = connection.createStatement();</span>
+<span class="fc" id="L71">                ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM customers ORDER BY id DESC LIMIT 1&quot;);) {</span>
+<span class="fc" id="L72">            resultSet.next();</span>
+<span class="fc" id="L73">            return modelFromResultSet(resultSet);</span>
+<span class="nc" id="L74">        } catch (Exception e) {</span>
+<span class="nc" id="L75">            LOGGER.debug(e);</span>
+<span class="nc" id="L76">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L78">        return null;</span>
+    }
+
+    @Override
+    public Customer update(Customer customer) {
+<span class="fc" id="L83">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+<span class="fc" id="L84">                PreparedStatement statement = connection</span>
+<span class="fc" id="L85">                        .prepareStatement(&quot;UPDATE customers SET first_name = ?, surname = ? WHERE id = ?&quot;);) {</span>
+<span class="fc" id="L86">            statement.setString(1, customer.getFirstName());</span>
+<span class="fc" id="L87">            statement.setString(2, customer.getSurname());</span>
+<span class="fc" id="L88">            statement.setLong(3, customer.getId());</span>
+<span class="fc" id="L89">            statement.executeUpdate();</span>
+<span class="fc" id="L90">            return read(customer.getId());</span>
+<span class="nc" id="L91">        } catch (Exception e) {</span>
+<span class="nc" id="L92">            LOGGER.debug(e);</span>
+<span class="nc" id="L93">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L95">        return null;</span>
+    }
+    
+    
+    public int deleteCustomerWithoutOrders(long id) {
+<span class="fc" id="L100">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+        		 
+        	
+<span class="fc" id="L103">        		PreparedStatement statement = connection</span>
+<span class="fc" id="L104">                        .prepareStatement(&quot;delete from customers where id = (?) &quot;);){</span>
+<span class="fc" id="L105">            statement.setLong(1, id);</span>
+<span class="fc" id="L106">         return statement.executeUpdate();</span>
+<span class="nc" id="L107">        } catch (Exception e) {</span>
+<span class="nc" id="L108">            LOGGER.debug(e);</span>
+<span class="nc" id="L109">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L111">        return 0;</span>
+    }
+    
+    
+    public int deleteCustomerWithOrders(long id) {
+<span class="nc" id="L116">        try (Connection connection = DatabaseUtilities.getInstance().getConnection();</span>
+        		 
+<span class="nc" id="L118">        		PreparedStatement statement2 = connection</span>
+<span class="nc" id="L119">                         .prepareStatement(&quot;delete from orders where fk_customers_id = (?) &quot;);) {</span>
+<span class="nc" id="L120">             statement2.setLong(1, id);</span>
+<span class="nc" id="L121">           statement2.executeUpdate();</span>
+       
+<span class="nc" id="L123">        		PreparedStatement statement = connection</span>
+<span class="nc" id="L124">                        .prepareStatement(&quot;delete from customers where id = (?) &quot;); </span>
+<span class="nc" id="L125">            statement.setLong(1, id);</span>
+<span class="nc" id="L126">         return statement.executeUpdate();</span>
+<span class="nc" id="L127">        } catch (Exception e) {</span>
+<span class="nc" id="L128">            LOGGER.debug(e);</span>
+<span class="nc" id="L129">            LOGGER.error(e.getMessage());</span>
+        }
+<span class="nc" id="L131">        return 0;</span>
+    } 
+    
+    
+    
+    
+    
+
+    @Override
+    public int delete(long id) {
+     
+<span class="nc" id="L142">        return 0;</span>
+    }
+
+    @Override
+    public Customer modelFromResultSet(ResultSet resultSet) throws SQLException {
+<span class="fc" id="L147">        Long id = resultSet.getLong(&quot;id&quot;);</span>
+<span class="fc" id="L148">        String firstName = resultSet.getString(&quot;first_name&quot;);</span>
+<span class="fc" id="L149">        String surname = resultSet.getString(&quot;surname&quot;);</span>
+<span class="fc" id="L150">        return new Customer(id, firstName, surname);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ims</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.controller</a> &gt; <span class="el_source">ItemsController.java</span></div><h1>ItemsController.java</h1><pre class="source lang-java linenums">package com.qa.ims.controller;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.qa.ims.persistence.dao.ItemsDao;
+import com.qa.ims.persistence.dao.OrdersDao;
+import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Items;
+import com.qa.ims.utils.JavaUtilities;
+
+public class ItemsController  implements ICrudController&lt;Items&gt; {
+	
+<span class="nc" id="L16">	public static final Logger LOGGER = LogManager.getLogger();</span>
+
+    private ItemsDao itemsDao;
+    private JavaUtilities javaUtilities;
+
+    public ItemsController(ItemsDao itemsDao, JavaUtilities javaUtilities) {
+<span class="nc" id="L22">        super();</span>
+<span class="nc" id="L23">        this.itemsDao = itemsDao;</span>
+<span class="nc" id="L24">        this.javaUtilities = javaUtilities;</span>
+<span class="nc" id="L25">    }</span>
+
+	@Override
+	public List&lt;Items&gt; readAll() {
+<span class="nc" id="L29">		 List&lt;Items&gt; items = itemsDao.readAll();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">	        for (Items item : items) {</span>
+<span class="nc" id="L31">	            LOGGER.info(item);</span>
+<span class="nc" id="L32">	        }</span>
+<span class="nc" id="L33">	        return items;</span>
+	}
+
+	@Override
+	public Items create() {
+<span class="nc" id="L38">		 LOGGER.info(&quot;Please enter the item's name&quot;);</span>
+<span class="nc" id="L39">	        String itemName = javaUtilities.getString();</span>
+<span class="nc" id="L40">	        LOGGER.info(&quot;Please enter the item's value&quot;);</span>
+<span class="nc" id="L41">	        Double itemValue = javaUtilities.getDouble();</span>
+<span class="nc" id="L42">	        Items items = itemsDao.create(new Items(itemName, itemValue));</span>
+<span class="nc" id="L43">	        LOGGER.info(&quot;Item created&quot;);</span>
+<span class="nc" id="L44">	        return items;</span>
+	} 
+
+	@Override
+	public Items update() {
+		//Output list of items for better experience
+<span class="nc" id="L50">		readAll();</span>
+<span class="nc" id="L51">		LOGGER.info(&quot;&quot;);</span>
+		//
+		
+<span class="nc" id="L54">		LOGGER.info(&quot;Please enter the id of the item you would like to update&quot;);</span>
+<span class="nc" id="L55">        Long itemsID = javaUtilities.getLong();</span>
+<span class="nc" id="L56">        LOGGER.info(&quot;Please enter a new item name&quot;);</span>
+<span class="nc" id="L57">        String itemName = javaUtilities.getString();</span>
+<span class="nc" id="L58">        LOGGER.info(&quot;Please enter a new item price&quot;);</span>
+<span class="nc" id="L59">        Double itemPrice = javaUtilities.getDouble();</span>
+<span class="nc" id="L60">        Items items = itemsDao.update(new Items(itemsID, itemName, itemPrice));</span>
+<span class="nc" id="L61">        LOGGER.info(&quot;Item has been updated&quot;);</span>
+<span class="nc" id="L62">        return items;</span>
+    }
+	
+
+	@Override
+	public int delete() {
+	   //Output list of items for better experience
+<span class="nc" id="L69">		readAll();</span>
+<span class="nc" id="L70">		LOGGER.info(&quot;&quot;);</span>
+		//
+		
+<span class="nc" id="L73">		LOGGER.info(&quot;Do you have any items related to an order?&quot;);</span>
+<span class="nc" id="L74">	   	 String answer = javaUtilities.getString();</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">	   	 if(answer.equalsIgnoreCase(&quot;yes&quot;))</span>
+	   	 {
+<span class="nc" id="L77">	   		ItemsDao itemsDao = new ItemsDao();</span>
+<span class="nc" id="L78">	   	 LOGGER.info(&quot;Please first enter the id of an item you &quot;);</span>
+<span class="nc" id="L79">	        Long itemsID = javaUtilities.getLong();</span>
+<span class="nc" id="L80">	        return  itemsDao.deleteItemsWithOrder(itemsID);</span>
+	   	
+	   		 
+	   	 } 
+	   	 
+<span class="nc bnc" id="L85" title="All 2 branches missed.">	   	 else if (answer.equalsIgnoreCase(&quot;no&quot;))</span>
+	   	 {
+
+	 		
+<span class="nc" id="L89">	 		LOGGER.info(&quot;Please enter the id of the item you would like to delete&quot;);</span>
+<span class="nc" id="L90">	         Long itemsID = javaUtilities.getLong();</span>
+<span class="nc" id="L91">	         LOGGER.info(&quot;Item has been deleted&quot;);</span>
+<span class="nc" id="L92">	         return itemsDao.delete(itemsID);</span>
+	   		 
+	   	 }
+	   	 
+	   	 else 
+	   	 {
+	   		 
+<span class="nc" id="L99">	   		 return 0; </span>
+	   	 }
+	   		 
+	   	 
+		
+		
+		
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
