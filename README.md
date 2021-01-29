@@ -10,48 +10,59 @@ Make sure the prerequisites are installed, ensure environment variables for Java
 
 ### Prerequisites
 
+```
 Java 11 - Run the program
 MySQL - For the database and crud functions
 Git - Clone repo down 
-Apache Maven - Run Unit tests
-
+Apache Mave
+n - Run Unit tests
+```
 ### Installing
+
  First you must clone this repo  to your computer  using the git clone command  :
 
+```
 git clone https://github.com/SehunB-QA/20DecSDET2-IMS-Starter.git
+```
+
 
 Using the same git terminal navigate to the Fat_Jar_File foler and execute the following command: 
 
+```
 java -jar ims-0.0.1-jar-with-dependencies.jar
 
-
+```
 
 ## Running the tests
 
 Once your repo is cloned wih the : 
 
+```
 git clone https://github.com/SehunB-QA/20DecSDET2-IMS-Starter.git
+```
 
 Using a command line interface, navigate to the new cloned repo with your terminal/ Command Line interface  and you can run maven tests with the command:
 
+```
 mvn test
-
+```
 ### Unit Tests 
 
 Unit Tests were conducted with JUnit & maven to test intended behaviour of CRUD function of the data acess objects.
 
 ### Test Deleting a customer without orders
 
-
+```
  @Test
     public void testDeleteCustomerWithoutOrders() {
         assertEquals(1, DAO.deleteCustomerWithoutOrders(1));
     }
-
+```
 ## Deployment
 
 First you need a MySql instance  set up , then you can reconstruct the IMS database structure using the follow SQL statement.
 
+```
 DROP SCHEMA ims;
 
 CREATE SCHEMA IF NOT EXISTS `ims`;
@@ -88,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `ims`.`order_items` (
   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`fk_orders_id`) REFERENCES `orders` (`orders_id`),
   CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`fk_id_items`) REFERENCES `items` (`id_items`)
 );
-
+```
 
 
 ## Built With
