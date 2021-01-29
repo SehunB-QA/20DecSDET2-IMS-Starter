@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.ItemsDao;
+import com.qa.ims.persistence.dao.OrdersDao;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Items;
 import com.qa.ims.utils.JavaUtilities;
@@ -68,10 +69,41 @@ public class ItemsController  implements ICrudController<Items> {
 		readAll();
 		LOGGER.info("");
 		//
-		LOGGER.info("Please enter the id of the item you would like to delete");
-        Long itemsID = javaUtilities.getLong();
-        LOGGER.info("Item has been deleted");
-        return itemsDao.delete(itemsID);
+		
+		LOGGER.info("Do you have any items related to an order?");
+	   	 String answer = javaUtilities.getString();
+	   	 if(answer.equalsIgnoreCase("yes"))
+	   	 {
+	   		ItemsDao itemsDao = new ItemsDao();
+	   	 LOGGER.info("Please first enter the id of an item you ");
+	        Long itemsID = javaUtilities.getLong();
+	        return  itemsDao.deleteItemsWithOrder(itemsID);
+	   	
+	   		 
+	   	 } 
+	   	 
+	   	 else if (answer.equalsIgnoreCase("no"))
+	   	 {
+
+	 		
+	 		LOGGER.info("Please enter the id of the item you would like to delete");
+	         Long itemsID = javaUtilities.getLong();
+	         LOGGER.info("Item has been deleted");
+	         return itemsDao.delete(itemsID);
+	   		 
+	   	 }
+	   	 
+	   	 else 
+	   	 {
+	   		 
+	   		 return 0; 
+	   	 }
+	   		 
+	   	 
+		
+		
+		
+
 	}
 
 }
