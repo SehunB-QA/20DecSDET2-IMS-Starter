@@ -1,0 +1,33 @@
+drop schema ims;
+
+CREATE SCHEMA IF NOT EXISTS `ims`;
+
+USE `ims` ;
+
+CREATE TABLE IF NOT EXISTS `ims`.`customers` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(40) DEFAULT NULL,
+    `surname` VARCHAR(40) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `ims`.`items` (
+  `id_items` INT NOT NULL AUTO_INCREMENT,
+  `item_name` VARCHAR(100) NULL,
+  `item_price` DECIMAL(9,2) NULL,
+  PRIMARY KEY (`id_items`));
+
+ CREATE TABLE  `ims`.``orders` (
+  `orders_id` int NOT NULL AUTO_INCREMENT,
+  `fk_customers_id` int NOT NULL,
+  PRIMARY KEY (`orders_id`,`fk_customers_id`),
+  KEY `fk_orders_customers_idx` (`fk_customers_id`),
+  CONSTRAINT `fk_orders_customers` FOREIGN KEY (`fk_customers_id`) REFERENCES `customers` (`id`));
+
+  CREATE TABLE  `ims`.`order_items` (
+  `fk_orders_id` int DEFAULT NULL,
+  `fk_id_items` int DEFAULT NULL,
+  KEY `fk_orders_id` (`fk_orders_id`),
+  KEY `fk_id_items` (`fk_id_items`),
+  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`fk_orders_id`) REFERENCES `orders` (`orders_id`),
+  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`fk_id_items`) REFERENCES `items` (`id_items`));

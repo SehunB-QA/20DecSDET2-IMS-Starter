@@ -1,6 +1,0 @@
-com\qa\ims\persistence\dao\ItemsDAOTest.class
-com\qa\ims\persistence\domain\CustomerTest.class
-com\qa\ims\persistence\domain\ItemsTest.class
-com\qa\ims\persistence\dao\OrdersDAOTest.class
-com\qa\ims\persistence\domain\OrdersTest.class
-com\qa\ims\persistence\dao\CustomerDAOTest.class
