@@ -52,7 +52,7 @@ Unit Tests were conducted with JUnit & maven to test intended behaviour of CRUD 
 
 ### Test Deleting a customer without orders
 
-```
+```java
  @Test
     public void testDeleteCustomerWithoutOrders() {
         assertEquals(1, DAO.deleteCustomerWithoutOrders(1));
@@ -62,7 +62,7 @@ Unit Tests were conducted with JUnit & maven to test intended behaviour of CRUD 
 
 First you need a MySql instance  set up , then you can reconstruct the IMS database structure using the follow SQL statement.
 
-```
+```sql
 DROP SCHEMA ims;
 
 CREATE SCHEMA IF NOT EXISTS `ims`;
