@@ -124,6 +124,14 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* A big thank you to my team mates Cameron, Raimonds, Henry, Melike for all help and support during the development of this project. A thank you to Nick, Pawel and my QA Trainers for teaching, help and support and memes.
+* A big thank you to my team mates:
+
+Cameron  -[CGuthrieQA](https://github.com/CGuthrieQA), 
+RaimondsCameron   -[RaimondsMezalsQA](https://github.com/RaimondsMezalsQA),
+Henry  - [QAHenryOliverEdwards](https://github.com/QAHenryOliverEdwards), 
+Melike - [QAMelikeAyhan](https://github.com/QAMelikeAyhan)
+for all help and support during the development of this project. :)
+
+* A thank you to Nick, Pawel and my QA Trainers for teaching, help, support and memes.
 
 
