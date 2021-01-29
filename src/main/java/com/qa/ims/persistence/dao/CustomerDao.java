@@ -32,7 +32,7 @@ public class CustomerDao implements IDomainDao<Customer> {
             LOGGER.error(e.getMessage());
         }
         return null;
-    }
+    } 
 
     public Customer read(Long id) {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();
@@ -94,16 +94,51 @@ public class CustomerDao implements IDomainDao<Customer> {
         }
         return null;
     }
-
-    @Override
-    public int delete(long id) {
+    
+    
+    public int deleteCustomerWithoutOrders(long id) {
         try (Connection connection = DatabaseUtilities.getInstance().getConnection();
-                Statement statement = connection.createStatement();) {
-            return statement.executeUpdate("delete from customers where id = " + id);
+        		 
+        	
+        		PreparedStatement statement = connection
+                        .prepareStatement("delete from customers where id = (?) ");){
+            statement.setLong(1, id);
+         return statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }
+        return 0;
+    }
+    
+    
+    public int deleteCustomerWithOrders(long id) {
+        try (Connection connection = DatabaseUtilities.getInstance().getConnection();
+        		 
+        		PreparedStatement statement2 = connection
+                         .prepareStatement("delete from orders where fk_customers_id = (?) ");) {
+             statement2.setLong(1, id);
+           statement2.executeUpdate();
+       
+        		PreparedStatement statement = connection
+                        .prepareStatement("delete from customers where id = (?) "); 
+            statement.setLong(1, id);
+         return statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return 0;
+    } 
+    
+    
+    
+    
+    
+
+    @Override
+    public int delete(long id) {
+     
         return 0;
     }
 

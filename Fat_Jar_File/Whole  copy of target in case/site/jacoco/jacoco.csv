@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ims,com.qa.ims.cli,ActionMenu,119,0,4,0,19,0,7,0,5,0
+ims,com.qa.ims.cli,DomainMenu,105,0,2,0,17,0,6,0,5,0
+ims,com.qa.ims.cli,IMSEntryPoint,143,0,17,0,47,0,17,0,5,0
+ims,com.qa.ims.controller,OrdersController,247,0,16,0,66,0,15,0,7,0
+ims,com.qa.ims.controller,CustomerController,155,0,6,0,41,0,9,0,6,0
+ims,com.qa.ims.controller,ItemsController,157,0,6,0,43,0,9,0,6,0
+ims,com.qa.ims.persistence.dao,OrdersDao,386,0,2,0,108,0,16,0,15,0
+ims,com.qa.ims.persistence.dao,ItemsDao,99,172,0,2,37,44,1,10,1,9
+ims,com.qa.ims.persistence.dao,CustomerDao,101,171,0,2,38,44,2,10,2,9
+ims,com.qa.ims,Runner,19,0,0,0,7,0,3,0,3,0
+ims,com.qa.ims.persistence.domain,Orders,240,346,0,94,62,77,19,49,19,2
+ims,com.qa.ims.persistence.domain,Customer,32,147,0,30,7,43,3,24,3,9
+ims,com.qa.ims.persistence.domain,Items,32,148,0,30,7,43,3,24,3,9
+ims,com.qa.ims.utils,DatabaseUtilities,19,159,1,3,7,35,2,12,1,11
+ims,com.qa.ims.utils,JavaUtilities,62,0,4,0,26,0,8,0,6,0

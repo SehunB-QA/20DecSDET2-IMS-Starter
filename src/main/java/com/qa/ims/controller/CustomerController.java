@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.CustomerDao;
+import com.qa.ims.persistence.dao.OrdersDao;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.JavaUtilities;
 
@@ -20,7 +21,7 @@ public class CustomerController implements ICrudController<Customer> {
         super();
         this.customerDao = customerDao;
         this.javaUtilities = javaUtilities;
-    }
+    } 
 
     @Override
     public List<Customer> readAll() {
@@ -54,12 +55,42 @@ public class CustomerController implements ICrudController<Customer> {
         LOGGER.info("Customer Updated");
         return customer;
     }
-
+ 
     @Override
     public int delete() {
-        LOGGER.info("Please enter the id of the customer you would like to delete");
-        Long id = javaUtilities.getLong();
-        return customerDao.delete(id);
+    	
+   	 LOGGER.info("Do you have any pending orders with your customer account?");
+   	 String answer = javaUtilities.getString();
+   	 if(answer.equalsIgnoreCase("yes"))
+   	 {
+   		OrdersDao ordersDao = new OrdersDao();
+   	 LOGGER.info("Please first enter the id of an order you have");
+        Long orderID = javaUtilities.getLong();
+         ordersDao.deleteWholeOrder(orderID);
+   	
+       LOGGER.info("Please enter the id of the customer you would like to delete");
+       Long id = javaUtilities.getLong();
+       return customerDao.deleteCustomerWithOrders(id);
+   		 
+   	 } 
+   	 
+   	 else if (answer.equalsIgnoreCase("no"))
+   	 {
+
+         LOGGER.info("Please enter the id of the customer you would like to delete");
+         Long id = javaUtilities.getLong();
+         return customerDao.deleteCustomerWithoutOrders(id);
+   		 
+   	 }
+   	 
+   	 else 
+   	 {
+   		 
+   		 return 0; 
+   	 }
+   		 
+   	 
+    	
     }
 
 }

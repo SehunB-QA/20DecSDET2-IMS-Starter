@@ -5,7 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.ICrudController;
+import com.qa.ims.controller.ItemsController;
+import com.qa.ims.controller.OrdersController;
 import com.qa.ims.persistence.dao.CustomerDao;
+import com.qa.ims.persistence.dao.ItemsDao;
+import com.qa.ims.persistence.dao.OrdersDao;
 import com.qa.ims.utils.DatabaseUtilities;
 import com.qa.ims.utils.JavaUtilities;
 
@@ -14,12 +18,18 @@ public class IMSEntryPoint {
     public static final Logger LOGGER = LogManager.getLogger();
 
     private final CustomerController customers;
+    private final ItemsController items;
+    private final OrdersController orders;
     private final JavaUtilities javaUtilities;
 
     public IMSEntryPoint() {
         this.javaUtilities = new JavaUtilities();
         final CustomerDao custDAO = new CustomerDao();
+        final ItemsDao itemsDAO = new ItemsDao();
+        final OrdersDao ordersDAO = new OrdersDao();
         this.customers = new CustomerController(custDAO, javaUtilities);
+        this.items = new ItemsController(itemsDAO, javaUtilities);
+        this.orders = new OrdersController(ordersDAO,javaUtilities);
     }
 
     public void init() {
@@ -48,9 +58,10 @@ public class IMSEntryPoint {
                 break;
             case ITEM:
                 // fill this in!
+                active = this.items;
                 break;
             case ORDER:
-                // fill this in!
+                active = this.orders;
                 break;
             case STOP:
                 return;
@@ -66,7 +77,7 @@ public class IMSEntryPoint {
             if (action == ActionMenu.RETURN) {
                 changeDomain = true;
             } else {
-                chooseAction(active, action);
+                chooseAction(active, action); 
             }
         } while (!changeDomain);
     }

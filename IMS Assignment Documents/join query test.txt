@@ -1,0 +1,169 @@
+customer id : 4
+item id: 1
+
+
+SELECT
+  customers.first_name,
+  customers.surname,
+  customers.id,
+  orders.fk_customers_id,
+  orders.orders_id,
+  items.id_items,
+  items.item_name,
+  items.item_price
+FROM customers
+JOIN orders
+  ON customers.id = orders.fk_customers_id;
+  
+  FROM orders
+  JOIN order_items
+  ON orders_id = orders_items.fk_orders_id;
+  
+  
+  
+  SELECT
+  customers.first_name,
+  customers.surname,
+  customers.id,
+  FROM customers
+  
+   SELECT
+  orders.fk_customers_id,
+  orders.orders_id,
+  FROM orders
+  
+  SELECT
+  items.id_items,
+  items.item_name,
+  items.item_price
+ FROM items
+JOIN orders
+  ON customers.id = orders.fk_customers_id;
+  
+  FROM orders
+  JOIN order_items
+  ON orders_id = orders_items.fk_orders_id;
+  
+  
+  
+  
+SELECT orders.orders_id, customers.first_name, customers.surname, items.item_name, items.item_price
+FROM orders
+INNER JOIN customers ON Orders.fk_customers_id = customers.id
+INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
+INNER JOIN items On order_items.fk_id_items = items.id_items; 
+
+
+
+SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price
+FROM orders
+INNER JOIN customers ON Orders.fk_customers_id = customers.id
+INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
+INNER JOIN items On order_items.fk_id_items = items.id_items; 
+
+
+DELETE FROM `orders`, `order_items` 
+USING `articles`,`comments` 
+WHERE `comments`.`article_id` = `articles`.`id` AND `articles`.`id` = 
+
+
+SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.item_name, items.item_price
+               		FROM orders
+               		INNER JOIN customers ON Orders.fk_customers_id = customers.id
+               		INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
+               		INNER JOIN items On order_items.fk_id_items = items.id_items;
+					
+					
+					
+					SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+					sum(item_price)
+FROM orders
+INNER JOIN customers ON Orders.fk_customers_id = customers.id
+INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
+INNER JOIN items On order_items.fk_id_items = items.id_items; 
+
+
+SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+					sum(item_price) As total_order_price
+FROM orders
+INNER JOIN customers ON Orders.fk_customers_id = customers.id
+INNER JOIN order_items ON Orders.orders_id = order_items.fk_orders_id
+INNER JOIN items On order_items.fk_id_items = items.id_items; 
+
+
+ SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+         sum(case when orders.orders_id = '5' then items.item_price else 0 end) as total_order_price
+     FROM orders
+     INNER JOIN customers ON Orders.fk_customers_id = customers.id
+     INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id
+     INNER JOIN items On order_items.fk_id_items = items.id_items;
+
+
+select item_price, id_items, sum(item_price) As total_order_price
+from items
+group by orders_items, fk_orders_id;
+
+ SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+         sum(case when orders.orders_id = '5' then items.item_price else 0 end) as total_order_price
+     FROM orders
+     INNER JOIN customers ON Orders.fk_customers_id = customers.id
+     INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id
+     INNER JOIN items On order_items.fk_id_items = items.id_items;
+	 
+	  SELECT where orders.orders_id = '3', customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+         sum(case when orders.orders_id = '3' then items.item_price else 0 end) as total_order_price
+     FROM orders
+     INNER JOIN customers ON Orders.fk_customers_id = customers.id
+     INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id
+     INNER JOIN items On order_items.fk_id_items = items.id_items;
+	 
+	 
+	 
+	 
+	 
+	  SELECT where orders.orders_id = '3', customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+         sum(case when orders.orders_id = '3' then items.item_price else 0 end) as total_order_price
+     FROM orders
+     INNER JOIN customers ON Orders.fk_customers_id = customers.id
+     INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id
+     INNER JOIN items On order_items.fk_id_items = items.id_items;
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	  SELECT WHERE orders_id = '3',  customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+         sum(case when orders.orders_id = '3' then items.item_price else 0 end) as total_order_price
+     FROM orders
+     INNER JOIN customers ON Orders.fk_customers_id = customers.id
+     INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id
+     INNER JOIN items On order_items.fk_id_items = items.id_items;
+	 
+	 
+	 
+	
+	 
+	SELECT *
+FROM orders
+WHERE orders_id IN 
+    (SELECT orders_id FROM orders WHERE orders_id = 3);
+	
+	
+	
+	
+	
+	
+	SELECT orders.orders_id, customers.id, customers.first_name, customers.surname, items.id_items, items.item_name, items.item_price,
+             sum(case when orders.orders_id = '4' then items.item_price else 0 end) as total_order_price
+          FROM orders
+          INNER JOIN customers ON Orders.fk_customers_id = customers.id
+          INNER JOIN order_items ON Orders.orders_id  = order_items.fk_orders_id
+          INNER JOIN items On order_items.fk_id_items = items.id_items
+		   where orders.orders_id = '4';
+	
+	
+	
+	
+	
