@@ -129,7 +129,7 @@ Cameron  -[CGuthrieQA](https://github.com/CGuthrieQA),
 RaimondsCameron   -[RaimondsMezalsQA](https://github.com/RaimondsMezalsQA),
 Henry  - [QAHenryOliverEdwards](https://github.com/QAHenryOliverEdwards), 
 Melike - [QAMelikeAyhan](https://github.com/QAMelikeAyhan)
-for all help and support during the development of this project. :)
+for all help, support and laughter during the development of this project. :)
 
 * A thank you to Nick, Pawel and my QA Trainers for teaching, help, support and memes.
 
