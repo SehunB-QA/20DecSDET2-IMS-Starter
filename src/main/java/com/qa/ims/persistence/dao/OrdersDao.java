@@ -19,8 +19,7 @@ import com.qa.ims.utils.DatabaseUtilities;
 public class OrdersDao implements IDomainDao<Orders> {
 	
 	  public static final Logger LOGGER = LogManager.getLogger();
-	  Orders orders = new Orders();
-	  Customer customer  = new Customer();
+	 
 	  List<Long> itemsList = new ArrayList<>();
     
 	   @Override

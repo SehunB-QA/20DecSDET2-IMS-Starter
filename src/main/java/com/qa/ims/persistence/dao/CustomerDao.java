@@ -129,7 +129,7 @@ public class CustomerDao implements IDomainDao<Customer> {
             LOGGER.error(e.getMessage());
         }
         return 0;
-    }
+    } 
     
     
     

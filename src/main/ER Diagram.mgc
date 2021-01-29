@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.qa.ims.controller.OrdersTotalPriceController"
+        x="825" y="373">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.domain.Customer" x="285" y="742">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.controller.OrdersController" x="1117" y="254">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.dao.CustomerDao"
+            endpointName="customerDao" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.dao.OrdersDao"
+            endpointName="ordersDao" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.domain.Items"
+            endpointName="items" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.domain.Customer"
+            endpointName="customer" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.utils.JavaUtilities"
+            endpointName="javaUtilities" kind="Simple"/>
+        <Communication destinationClassName="com.qa.ims.persistence.dao.OrdersDao"/>
+        <Communication destinationClassName="com.qa.ims.utils.JavaUtilities"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.dao.CustomerDao" x="550" y="731">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.utils.JavaUtilities" x="374" y="530">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.utils.DatabaseUtilities" x="108" y="86">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.controller.ItemsController" x="15" y="383">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.dao.ItemsDao"
+            endpointName="itemsDao" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.utils.JavaUtilities"
+            endpointName="javaUtilities" kind="Simple"/>
+        <Communication destinationClassName="com.qa.ims.persistence.dao.ItemsDao"/>
+        <Communication destinationClassName="com.qa.ims.utils.JavaUtilities"/>
+    </Class>
+    <Class name="com.qa.ims.Runner" x="670" y="20">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="com.qa.ims.cli.IMSEntryPoint"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.domain.Items" x="13" y="220">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.controller.CustomerController" x="843" y="775">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.dao.CustomerDao"
+            endpointName="customerDao" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.utils.JavaUtilities"
+            endpointName="javaUtilities" kind="Simple"/>
+        <Communication destinationClassName="com.qa.ims.persistence.dao.OrdersDao"/>
+        <Communication destinationClassName="com.qa.ims.persistence.dao.CustomerDao"/>
+        <Communication destinationClassName="com.qa.ims.utils.JavaUtilities"/>
+    </Class>
+    <Class name="com.qa.ims.controller.ICrudController" x="884" y="42">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.dao.ItemsDao" x="13" y="553">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.cli.ActionMenu" x="1035" y="-9">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.dao.IDomainDao" x="1161" y="17">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.domain.Orders" x="1099" y="697">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.domain.Customer"
+            endpointName="orderCustomer" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.persistence.domain.Items"
+            endpointName="orderItems" kind="Simple"/>
+        <Communication destinationClassName="com.qa.ims.persistence.domain.Customer"/>
+    </Class>
+    <Class name="com.qa.ims.cli.IMSEntryPoint" x="342" y="-12">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.qa.ims.controller.OrdersController"
+            endpointName="orders" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.controller.CustomerController"
+            endpointName="customers" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.controller.ItemsController"
+            endpointName="items" kind="Simple"/>
+        <Association
+            destinationClassName="com.qa.ims.utils.JavaUtilities"
+            endpointName="javaUtilities" kind="Simple"/>
+        <Communication destinationClassName="com.qa.ims.cli.ActionMenu"/>
+        <Communication destinationClassName="com.qa.ims.utils.DatabaseUtilities"/>
+        <Communication destinationClassName="com.qa.ims.cli.DomainMenu"/>
+    </Class>
+    <Class name="com.qa.ims.persistence.dao.OrdersDao" x="1032" y="448">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.qa.ims.cli.DomainMenu" x="460" y="218">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+</ClassDiagram>

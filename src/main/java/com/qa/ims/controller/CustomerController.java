@@ -72,7 +72,7 @@ public class CustomerController implements ICrudController<Customer> {
        Long id = javaUtilities.getLong();
        return customerDao.deleteCustomerWithOrders(id);
    		 
-   	 }
+   	 } 
    	 
    	 else if (answer.equalsIgnoreCase("no"))
    	 {
@@ -86,7 +86,7 @@ public class CustomerController implements ICrudController<Customer> {
    	 else 
    	 {
    		 
-   		 return 0;
+   		 return 0; 
    	 }
    		 
    	 

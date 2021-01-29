@@ -83,6 +83,11 @@ public class Orders {
 	public Orders(Long customerID2) {
 		this.customerID = customerID2;
 	}
+	
+	public Orders(Long orderID, Long  customerID2) {
+		this.orderID = orderID;
+		this.customerID = customerID2;
+	}
 
 	public Orders(Double totalOrderPrice) {
 		this.totalOrderPrice = totalOrderPrice;

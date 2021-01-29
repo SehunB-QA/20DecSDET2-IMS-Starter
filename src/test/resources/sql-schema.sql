@@ -1,7 +1,6 @@
-DROP TABLE IF EXISTS `order_items`;
-DROP TABLE IF EXISTS `orders`;
-DROP TABLE IF EXISTS `customers`;
-DROP TABLE IF EXISTS `items`;
+DROP TABLE orders;
+DROP  TABLE customers;
+DROP  TABLE items;
 
 
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -11,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
     PRIMARY KEY (`id`)
 );
 
-DROP TABLE IF EXISTS `items`;
+
 
 CREATE TABLE IF NOT EXISTS `items`(
   `id_items` INT NOT NULL AUTO_INCREMENT,
@@ -19,5 +18,15 @@ CREATE TABLE IF NOT EXISTS `items`(
   `item_price` DECIMAL(9,2) NULL,
   PRIMARY KEY (`id_items`)
   );
+  
+  
+  CREATE TABLE `orders` (
+  `orders_id` int NOT NULL AUTO_INCREMENT,
+  `fk_customers_id` int NOT NULL,
+  PRIMARY KEY (`orders_id`,`fk_customers_id`),
+  
+  CONSTRAINT `fk_orders_customers` FOREIGN KEY (`fk_customers_id`) REFERENCES `customers` (`id`)
+  );
 
   
+   
